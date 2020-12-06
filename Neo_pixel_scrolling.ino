@@ -32,7 +32,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 8, DATA_PIN,
 
 //char* Text[]= {"Hello Friends","Welcome To","EASY","HOMEMADE","PROJECTS.","PLZ","LIKE,","SHARE,","& SUBSCRIBE"};
 
-//char* Text[]= {"Hola","Bienvenidos a ","javi-ard-pro ","Proyectos", "personales ", "con arduino", " y DIY ","Saludos!"};
+//char* Text[]= {"Hola  ","Bienvenidos a ","javi-ard-pro ","Proyectos", "personales ", "con arduino", " y DIY ","Saludos!"};
 
 const uint16_t colors[] = {
   matrix.Color(255, 0, 255), matrix.Color(100, 255, 0), matrix.Color(255, 255, 0),matrix.Color(0, 0, 255), matrix.Color(255, 0, 255), matrix.Color(0, 255, 255), matrix.Color(255, 255, 255)};
@@ -45,6 +45,48 @@ int mode = 0;
 int numColor = arr_len(colors)-1;
 
 //***Variables y funciones para librería y efectos FASTLED
+const long javiPic[] PROGMEM =
+{
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0xffffff, 0x000000, 0x000000, 0x000000, 0xffffff, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0xffffff, 0x000000, 0x000000, 0x000000, 0x000000, 
+//0x000000, 0xffffff, 0x000000, 0x000000, 0x000000, 0xffffff, 0x000000, 0x000000, 
+0x000000, 0x000000, 0xffffff, 0x000000, 0x000000, 0x000000, 0xffffff, 0x000000, 
+0x000000, 0x000000, 0xffffff, 0xffffff, 0xffffff, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000
+};
+
+const long javiPic2[] PROGMEM =
+{
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0xffffff, 0x000000, 0x000000, 0x000000, 0xffffff, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0xffffff, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0xffffff, 0x000000, 0x000000, 0x000000, 0x000000, 
+0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000, 0x000000
+
+  
+};
+
+const long smiley[] PROGMEM =
+{
+0x3300ff, 0x3300ff, 0x3300ff, 0x3300ff, 0x3300ff, 0x3300ff, 0x3300ff, 0x3300ff, 
+//0x3300ff, 0x3300ff, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 0x3300ff, 0x3300ff, 
+0x3300ff, 0x3300ff, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 0x3300ff, 0x3300ff, 
+0x3300ff, 0xffff00, 0x000000, 0xffff00, 0xffff00, 0x000000, 0xffff00, 0x3300ff, 
+//0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00, 
+0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00,
+0xffff00, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 
+//0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00, 
+0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00, 0x000000, 0xffff00, 0xffff00,
+0x3300ff, 0xffff00, 0xffff00, 0x000000, 0x000000, 0xffff00, 0xffff00, 0x3300ff, 
+//0x3300ff, 0x3300ff, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 0x3300ff, 0x3300ff
+0x3300ff, 0x3300ff, 0xffff00, 0xffff00, 0xffff00, 0xffff00, 0x3300ff, 0x3300ff
+};
 #define DATA_PIN    8
 //#define CLK_PIN   4
 #define LED_TYPE    WS2811
@@ -59,9 +101,7 @@ byte elegir_libreria =0;
 byte addr=0;
 
 void setup() { 
-  Serial.begin(9600);
-    Serial.print(F("El valor de la EEPROM es "));     
-    Serial.print(EEPROM.read(addr));
+
     //iniciamos librerías
 iniciar_neopixel(BRIGHTNESS);
 
@@ -104,7 +144,8 @@ int line_pass = 0;
 
 
 typedef void (*SimplePatternList[])();
-SimplePatternList gPatterns = { rainbow, rainbowWithGlitter, confetti, sinelon, juggle, bpm };
+SimplePatternList gPatterns = {rainbow, rainbowWithGlitter, confetti, sinelon, juggle, bpm,read_display_array_fromflash,read_display_array_fromflash2,read_display_array_fromflash_smiley};
+//SimplePatternList gPatterns = {read_display_array_fromflash,read_display_array_fromflash2,read_display_array_fromflash_smiley};
 
 uint8_t gCurrentPatternNumber = 0; // Index number of which pattern is current
 uint8_t gHue = 0; // rotating "base color" used by many of the patterns
@@ -114,7 +155,7 @@ void loop() {
     
    
  if(elegir_libreria == 0)
-       fastled_funciones();
+       fastled_funciones(BRIGHTNESS);
    else
     neopixel_funciones( mode);
 //  Serial.print(F("El valor de elegir libreria es "));     
@@ -136,8 +177,8 @@ void neopixel_funciones(int mode)
   
 }
 
-void fastled_funciones(){
-
+void fastled_funciones(byte brightness){
+ FastLED.setBrightness(brightness);
 gPatterns[gCurrentPatternNumber]();
 fastled_display();
 EVERY_N_MILLISECONDS( 20 ) { gHue++; } // slowly cycle the "base color" through the rainbow
@@ -215,23 +256,51 @@ void juggle() {
 
 // this does the magic of scrolling
 void scroll(int delays) {
-  char* message[]= {"Hola!","Bienvenidos a ","javi-ard-pro ","Proyectos", "personales ", "con arduino", " y DIY ","Saludos!"};
+  char* message[]= {"Hola","Bienvenidos","javi-ard-pro","Proyectos", "personales. ", "con arduino", " y DIY ","Saludos!"};
 
 int numMode = arr_len(message)-1;
 
 
   //if(++line_pass > matrix.width()) line_pass = 0;
-  matrix.print(String(message[mode]));
+ 
   if(--x < -maxDisplacement) {
     x = matrix.width();
     if(++pass >= numColor) { pass = 0;  };
     matrix.setTextColor(colors[pass]);
-     maxDisplacement = strlen(message[mode]) * pixelPerChar + matrix.width()+3;
+     maxDisplacement = strlen(message[mode]) * pixelPerChar + matrix.width();
  
     mode++;
   }
-  if(mode > numMode)
-    mode=0;
+ matrix.print(String(message[mode]));
   matrix.show();
   delay(delays);
+    if(mode > numMode)
+    mode=0;
+}
+
+void read_display_array_fromflash(){
+// FastLED.clear();
+  for(byte i=0; i<NUM_LEDS;i++){
+    leds[i]=pgm_read_dword(&(javiPic[i]));
+  }
+ // FastLED.show();  
+  //delay(1000);
+}
+
+void read_display_array_fromflash2(){
+// FastLED.clear();
+  for(byte i=0; i<NUM_LEDS;i++){
+    leds[i]=pgm_read_dword(&(javiPic2[i]));
+  }
+ // FastLED.show();  
+  //delay(1000);
+}
+
+void read_display_array_fromflash_smiley(){
+// FastLED.clear();
+  for(byte i=0; i<NUM_LEDS;i++){
+    leds[i]=pgm_read_dword(&(smiley[i]));
+  }
+ // FastLED.show();  
+  //delay(1000);
 }
